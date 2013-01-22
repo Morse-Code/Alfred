@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.morsecode.symlink</string>
+	<key>connections</key>
+	<dict>
+		<key>2AEC9A94-06C3-47B1-BB11-DDAF17BC52D9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>84931ADC-EA2F-4C13-A5DF-546FA6D6D35C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>84931ADC-EA2F-4C13-A5DF-546FA6D6D35C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B7696EB0-3E1E-4D9C-BEF0-C6773324441F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>AD4C432E-94F9-47E3-9398-06D2B677E8FA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>84931ADC-EA2F-4C13-A5DF-546FA6D6D35C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Christopher Morse</string>
+	<key>description</key>
+	<string>Creates a symbolic link to file or directory.</string>
+	<key>name</key>
+	<string>Create Symbolic Link</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>sym</string>
+				<key>text</key>
+				<string>Create Symbolic Link</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>AD4C432E-94F9-47E3-9398-06D2B677E8FA</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Symbolic Link</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>B7696EB0-3E1E-4D9C-BEF0-C6773324441F</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>acceptsmulti</key>
+				<false/>
+				<key>filetypes</key>
+				<array/>
+				<key>name</key>
+				<string>Create Symbolic Link to selection</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.action</string>
+			<key>uid</key>
+			<string>2AEC9A94-06C3-47B1-BB11-DDAF17BC52D9</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string># Create symbolic link to file or directory passed as query.
+# New symlink is created in ~/Desktop. 
+
+FOLDERNAME=$(basename {query})
+ln -s {query} ~/Desktop/"$FOLDERNAME"
+echo "New Symlink '$FOLDERNAME' is available on your Desktop"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>84931ADC-EA2F-4C13-A5DF-546FA6D6D35C</string>
+		</dict>
+	</array>
+	<key>uidata</key>
+	<dict>
+		<key>2AEC9A94-06C3-47B1-BB11-DDAF17BC52D9</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>84931ADC-EA2F-4C13-A5DF-546FA6D6D35C</key>
+		<dict>
+			<key>ypos</key>
+			<real>110</real>
+		</dict>
+		<key>AD4C432E-94F9-47E3-9398-06D2B677E8FA</key>
+		<dict>
+			<key>ypos</key>
+			<real>210</real>
+		</dict>
+		<key>B7696EB0-3E1E-4D9C-BEF0-C6773324441F</key>
+		<dict>
+			<key>ypos</key>
+			<real>110</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://www.morse-coder.com/</string>
+</dict>
+</plist>
