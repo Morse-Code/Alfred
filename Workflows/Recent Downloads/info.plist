@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.morsecode.recentdownloads</string>
+	<key>connections</key>
+	<dict>
+		<key>66983B65-5D93-42DF-9772-D410824855C9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D9A7A0E2-D34B-4265-A341-B2268B2D0741</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>95F2C607-A0E1-4057-A957-50D6F72B9D55</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>66983B65-5D93-42DF-9772-D410824855C9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>A5706966-D6DA-4CB2-B7E8-E0D9FEEF30E6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>66983B65-5D93-42DF-9772-D410824855C9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Christopher Morse</string>
+	<key>description</key>
+	<string>List and install recent downloads.</string>
+	<key>name</key>
+	<string>Recent Downloads</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string># Christopher Morse (@morsecoad) responsible for porting to Afred v.2 (so not much)
+# Thanks to jdfwarrior for the initial Recent Download extension
+# Thanks to Okke Tijhuis (@otijhuis) for the modified script.
+#
+# Type 'recent help' for the documentation
+
+bash recent.sh -s ask -n -a "Finder" -d ~/Downloads -- "{query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>66983B65-5D93-42DF-9772-D410824855C9</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Recent Downloads</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>D9A7A0E2-D34B-4265-A341-B2268B2D0741</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>recent</string>
+				<key>text</key>
+				<string>Recent Downloads</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>95F2C607-A0E1-4057-A957-50D6F72B9D55</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>2</integer>
+				<key>hotmod</key>
+				<integer>655652</integer>
+				<key>hotstring</key>
+				<string>D</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>A5706966-D6DA-4CB2-B7E8-E0D9FEEF30E6</string>
+		</dict>
+	</array>
+	<key>uidata</key>
+	<dict>
+		<key>66983B65-5D93-42DF-9772-D410824855C9</key>
+		<dict>
+			<key>ypos</key>
+			<real>90</real>
+		</dict>
+		<key>95F2C607-A0E1-4057-A957-50D6F72B9D55</key>
+		<dict>
+			<key>ypos</key>
+			<real>220</real>
+		</dict>
+		<key>A5706966-D6DA-4CB2-B7E8-E0D9FEEF30E6</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>D9A7A0E2-D34B-4265-A341-B2268B2D0741</key>
+		<dict>
+			<key>ypos</key>
+			<real>90</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://www.morse-coder.com</string>
+</dict>
+</plist>
