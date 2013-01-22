@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.morsecode.filerevealer</string>
+	<key>connections</key>
+	<dict>
+		<key>068A6E68-1CC5-4F1F-9BCA-7698133129FF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F9C0DB19-F4E0-4936-8114-6467E57BF54F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>F9C0DB19-F4E0-4936-8114-6467E57BF54F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B97C7616-3B66-45A7-BF10-F488B399021B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Christopher Morse</string>
+	<key>description</key>
+	<string>Show/Hide hidden files in Finder.</string>
+	<key>name</key>
+	<string>Hidden File Toggle</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Hidden File Toggle</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>B97C7616-3B66-45A7-BF10-F488B399021B</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>hid</string>
+				<key>subtext</key>
+				<string>Reveal hidden Finder items.</string>
+				<key>text</key>
+				<string>Hide</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>068A6E68-1CC5-4F1F-9BCA-7698133129FF</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>bash filerevealer.sh</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>F9C0DB19-F4E0-4936-8114-6467E57BF54F</string>
+		</dict>
+	</array>
+	<key>uidata</key>
+	<dict>
+		<key>068A6E68-1CC5-4F1F-9BCA-7698133129FF</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>B97C7616-3B66-45A7-BF10-F488B399021B</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>F9C0DB19-F4E0-4936-8114-6467E57BF54F</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://morse-coder.com</string>
+</dict>
+</plist>
