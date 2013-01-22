@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.morsecode.FoldingText</string>
+	<key>connections</key>
+	<dict>
+		<key>2A51F0EC-B8B8-4DB3-BB8C-964BD83DC1CB</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F8ED6D76-65D6-4938-BECF-60317B140B99</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>E2096201-BD6B-4E4E-B13C-644B94FB401B</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Create Links to All Tabs</string>
+			</dict>
+		</array>
+		<key>991B85CA-8E61-4A1C-A628-13CE76B74267</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2CC44584-B9B4-437E-B637-39204FCCD5DB</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>AAAE270B-2397-4910-9691-6BA4030DF9A3</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5C44ECC9-3380-47B4-9581-8A611B1F49BF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>E5F46CF0-5DCC-4AB8-815C-61FDDEA288A8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A16A004F-D15F-4E26-BA81-AE555886FA91</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Christopher Morse</string>
+	<key>description</key>
+	<string>Series of FoldingText scripts</string>
+	<key>name</key>
+	<string>FoldingText</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>property pTitle : "Open FoldingText file in Marked"property pVer : "0.02"property pAuthor : "Robin Trew"property pblnPositionWindows : false -- Set this to false to disable the window positioning at the end of the scripton alfred_script(q)	tell application "FoldingText"		set lstDocs to documents		if lstDocs = {} then return		set {strName, oFile} to {name, file} of item 1 of lstDocs		activate		if oFile is missing value then			display dialog "The document: " &amp; return &amp; return &amp; strName &amp; ¬				return &amp; return &amp; "needs to be saved before Marked can preview it." buttons {"OK"} ¬				default button "OK" with title pTitle &amp; "  ver. " &amp; pVer			return		end if	end tell		---- Marked	tell application id "com.brettterpstra.marky"		activate		open oFile	end tell		-- Try to position windows left and right (to disable this, if it doesn't suit your workflow or your screen setup,	-- set pblnPositionWindows at the top of the script to false )	if pblnPositionWindows then		set lngWidth to word 3 of (do shell script "defaults read /Library/Preferences/com.apple.windowserver | grep -w Width")		set lngHeight to word 3 of (do shell script "defaults read /Library/Preferences/com.apple.windowserver | grep -w Height")		set lngHalf to lngWidth / 2		set lngHeight to lngHeight - 22				tell application id "sevs"			tell process "FoldingText" to tell window 1 to set {position, size} to {{lngHalf, 22}, {lngHalf, lngHeight}}			tell process "Marked" to tell window 1 to set {position, size} to {{0, 22}, {lngHalf, lngHeight}}		end tell	end ifend alfred_script</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>5C44ECC9-3380-47B4-9581-8A611B1F49BF</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>ftmarked</string>
+				<key>subtext</key>
+				<string>Preview FT document in Marked</string>
+				<key>text</key>
+				<string>FT-Marked</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>AAAE270B-2397-4910-9691-6BA4030DF9A3</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>-- Copyright (C) 2012 Robin Trew---- Permission is hereby granted, free of charge, -- to any person obtaining a copy of this software -- and associated documentation files (the "Software"), -- to deal in the Software without restriction, -- including without limitation the rights to use, copy, -- modify, merge, publish, distribute, sublicense, -- and/or sell copies of the Software, and to permit persons -- to whom the Software is furnished to do so, -- subject to the following conditions:-- *******-- The above copyright notice and this permission notice -- shall be included in ALL copies -- or substantial portions of the Software.-- *******-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, -- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES -- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. -- IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, -- DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, -- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE -- OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-- Ver 0.14 adds basic OPML export (Interim – pending release of the new API - doesn't yet export tags and their values as attributes.)-- Ver 0.15 first pass of amendment for the new scripting syntax of FoldingText 1.1 Dev-- Ver 0.21 Offers the option of excluding @done items and their subtrees for OmniFocus exportproperty pTitle : "Export from FoldingText"property pVer : "0.21"property pAuthor : "Robin Trew"property pSite : "Originally published on http://forums.omnigroup.com"property pOutFolder : (path to desktop) -- set this to "" to default to the .ft file's folderproperty plngOFOC : 0 -- OmniFocusproperty plngOFOCExceptDone : 1 -- OmniFocus (excluding @done items)property plngOOut : 2 -- OmniOutlinerproperty plngOGfl : 3 -- OmniGraffleproperty plngOPML : 4 -- OPMLproperty pstrOFOC : "OFOC"property pstrOOut : "OOut"property pstrOGfl : "OGfl"property pstrFocus : "OmniFocus"property pstrFocusExceptDone : "OmniFocus (excluding @done items)"property pstrOutliner : "OmniOutliner"property pstrGraffle : "OmniGraffle"property pstrOPML : "OPML"property plstOFOC : {pstrOFOC, pstrFocus}property plstOOut : {pstrOOut, pstrOutliner}property plstOGfl : {pstrOGfl, pstrGraffle}property pstrOFScript : "Tree2OF.scpt"property pstrOGScript : "Tree2OG.scpt"property pstrOOScript : "Tree2OO.scpt"property pblnMenu : true -- IF FALSE, SKIPS MENU AND EXPORTS TO APP indicated by plngTarget (below)property plngTarget : plngOOut-- OmniGraffleproperty pstrTemplate : "Blank" -- edit to the name of your preferred OG templateproperty pstrChildren : "/*" -- In the XPath-modelled FoldingText query engine-- OPMLproperty pOPMLHeadToExpand : "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;
+&lt;opml version=\"1.0\"&gt;
+	&lt;head&gt;
+	&lt;title&gt;Selected FoldingText Node and SubTree&lt;/title&gt;
+	&lt;expansionState&gt;"property pOPMLHeadFromExpand : "&lt;/expansionState&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+ 	"property pOPMLTail : "
+	&lt;/body&gt;
+&lt;/opml&gt;"property pNodeStart : "&lt;outline "property pLeafClose : "/&gt;"property pParentClose : "&lt;/outline&gt;"-- EXPORTS FROM FoldingText (www.foldingtext.com) to OmniFocus-- Exports the first selected line in FoldingText, -- and the whole subtree of that line, to OmniFocus.-- .TODO (the FoldingText tag)-- If any of the lines in the subtree end in the special -- FoldingText tag ".todo" the *first* such line will be-- interpreted as corresponding to an OmniFocus project.-- Any ancestors of that line will be treated as nested folders.-- Any descendants of that line will be treated as nested tasks.-- If the subtree contains no .todo tags, the first selected line-- will be exported as an OmniFocus project-- UPDATING EXISTING FOLDERS, PROJECTS, TASKS-- At every level of export, the script checks for existing -- folders, projects, and tasks of the same name.-- Duplicates are not created, but any additional children -- be added.-- NOTIFICATION OF RESULTS-- If Growl is running the numbers of Folders|Projects|Tasks-- that were found and/or created will be reported-- either through Growl, if it is running,-- or through an Applescript dialog
+on alfred_script(q)
+	-- GET THE SUBTREE OF THE FIRST LINE SELECTED IN FOLDING TEXT	-- AS A NESTED LIST, WITH A FLAG REPORTING ANY .todo FOUND IN THE TREE	if IsDev() then		set lstTree to GetFTSelnDev()	else		set lstTree to GetFTSeln()	end if		-- PLACE THE TREE IN OMNIFOCUS	-- PROJECT LEVEL: the level of the first .todo tag in FT	-- OR in the absence of a .todo, the first line of the tree	-- ANY LEVELS BEFORE THE PROJECT/.todo ARE TREATED AS NESTED FOLDERS	-- ANY LEVELS BELOW THE PROJECT/.todo ARE TREATED AS NESTED TASKS		if length of lstTree &gt; 0 then		set strRootText to ""		try			set strRootText to "Subtree of " &amp; quoted form of (|text| of item 1 of item 1 of lstTree)		end try				if pblnMenu then			-- Build list of installed applications			set lstMenu to {}			repeat with oApp in {plstOFOC, plstOOut, plstOGfl}				set {strAppCode, strAppName} to contents of oApp				if IsInstalled(strAppCode) then					set end of lstMenu to strAppName					if strAppCode = "OFOC" then set end of lstMenu to pstrFocusExceptDone				end if			end repeat			set end of lstMenu to "OPML"						if length of lstMenu &gt; 1 then				tell application id "syui"					activate					set varChoice to choose from list lstMenu with title pTitle &amp; tab &amp; pVer with prompt ¬						"Export to:" default items item 1 of lstMenu ¬						OK button name "OK" cancel button name "Cancel" with empty selection allowed without multiple selections allowed				end tell				if varChoice = false then return missing value				set varChoice to item 1 of varChoice			else				set varChoice to item 1 of lstMenu			end if						if varChoice = pstrFocus then				FT2OF(strRootText, lstTree, false)			else if varChoice = pstrFocusExceptDone then				FT2OF(strRootText, lstTree, true)			else if varChoice = pstrOutliner then				FT2OO(strRootText, lstTree)			else if varChoice = pstrGraffle then				FT2OG(strRootText, lstTree)			else if varChoice = pstrOPML then				FT2OPML(strRootText, lstTree)			end if		else			if plngTarget = plngOFOC then				FT2OF(strRootText, lstTree, false)			else if plngTarget = plngOFOCExceptDone then				FT2OF(strRootText, lstTree, true)			else if plngTarget = plngOOut then				FT2OO(strRootText, lstTree)			else if plngTarget = plngOGfl then				FT2OG(strRootText, lstTree)			else if plngTarget = plngOPML then				FT2OPML(strRootText, lstTree)			end if		end if	end ifend alfred_scripton IsDev()	set strLocalSeparator to (text 2 of (pi as string))		tell application "FoldingText"		set strVersion to version		set {dlm, my text item delimiters} to {my text item delimiters, "."}		set lstParts to text items of strVersion		set my text item delimiters to strLocalSeparator -- local number separator		set strVersion to lstParts as string		set my text item delimiters to dlm				return (strVersion as number) &gt; 1	end tellend IsDevon IsInstalled(strAppCode)	try		tell application "Finder" to return ((exists application file id strAppCode) ≠ "")	on error		return false	end tryend IsInstalledon FT2OF(strRootText, lstTree, blnSkipDone)	set scriptOF to load script POSIX path of (path to resource pstrOFScript) as POSIX file	scriptOF's Export2OF(strRootText, lstTree, blnSkipDone)end FT2OFon FT2OO(strRootText, lstTree)	set scriptOO to load script POSIX path of (path to resource pstrOOScript) as POSIX file	scriptOO's Export2OO(strRootText, lstTree)end FT2OOon FT2OG(strRootText, lstTree)	set scriptOG to load script POSIX path of (path to resource pstrOGScript) as POSIX file	scriptOG's Export2OG(strRootText, lstTree, pstrTemplate)end FT2OGon FT2OPML(strRootText, lstNodes)	if (length of lstNodes &gt; 0) then				set {lngIndex, strExpand, strOutline} to my Nodes2OPML(-1, lstNodes, tab)		set strOPML to pOPMLHeadToExpand &amp; strExpand &amp; pOPMLHeadFromExpand &amp; strOutline &amp; pOPMLTail		set the clipboard to strOPML		tell application "FoldingText"			try				tell front document					set {strBaseName, strFTPath} to {name, POSIX path of ((its file) as alias)}				end tell			on error				activate				display dialog "FoldingText file not yet saved: " &amp; return &amp; return &amp; ¬					"Save before exporting to OPML." buttons {"OK"} default button "OK" with title pTitle &amp; "  ver. " &amp; pVer				return			end try		end tell		ChooseFilePathAndSave(strOPML, strFTPath, strBaseName, "opml")		return strOPML	end ifend FT2OPML-- READING DATA FROM FOLDING TEXTon GetFTSeln()	tell application "FoldingText"		set lstDocs to documents		if length of lstDocs &lt; 1 then return {}		return my Expand(item 1 of lstDocs, my SelectedFTRoots())	end tellend GetFTSelnon GetFTSelnDev()	tell application "FoldingText"		set lstDocs to documents		if length of lstDocs &lt; 1 then return {}		return my ExpandDev(item 1 of lstDocs, my SelectedFTRootsDev())	end tellend GetFTSelnDevon SelectedFTRootsDev()	tell application "FoldingText"		tell front document			-- WALK TOP DOWN LEFT RIGHT THROUGH THE SELECTED PARTS OF THE TREE			-- HARVESTING ONLY NODES WHOSE PARENTS HAVE YET TO BE SEEN			-- AND WHICH HAVE EITHER TEXT OR PROGENY			try				set lstSeln to read nodes at path (|nodePath| of (read selection it))			on error				set lstSeln to read nodes at path "/@type!=empty"			end try						if length of lstSeln &lt; 1 then return {}			if |type| of (item 1 of lstSeln) = "empty" then				display dialog "First selected line should contain text" buttons {"OK"} default button "OK" with title pTitle &amp; "  ver. " &amp; pVer				return {}			end if			set lstSofar to []			set lstParent to []						repeat with oNode in lstSeln				set {strID, strParentID} to {|id|, |parentID|} of oNode				if lstSofar does not contain strParentID then					if (|type| of oNode ≠ "empty") then set lstParent to lstParent &amp; strID				end if				set lstSofar to lstSofar &amp; strID			end repeat						repeat with i from 1 to length of lstParent				set item i of lstParent to "//@id=" &amp; item i of lstParent			end repeat						-- TRANSLATE THE LIST OF IDS INTO A LIST OF NODE RECORDS			set {dlm, AppleScript's text item delimiters} to {AppleScript's text item delimiters, " union "}			set lstRoot to read nodes at path (lstParent as string)			set my text item delimiters to dlm						return lstRoot		end tell	end tellend SelectedFTRootsDevon SelectedFTRoots()	tell application "FoldingText"		tell front document			set lstParent to []			set lstSofar to []						-- WALK TOP DOWN LEFT RIGHT THROUGH THE SELECTED PARTS OF THE TREE			-- HARVESTING ONLY NODES WHOSE PARENTS HAVE YET TO BE SEEN			-- AND WHICH HAVE EITHER TEXT OR PROGENY			set lstSeln to DEPRECATED get nodes as records path DEPRECATED selected nodes path			repeat with oNode in lstSeln				set {strID, strParentID} to {|id|, |parentID|} of oNode				if lstSofar does not contain strParentID then					if (|type| of oNode ≠ "empty") or ¬						(DEPRECATED get nodes as records it path (|path| of oNode &amp; "/*")) ≠ {} then ¬						set lstParent to lstParent &amp; strID				end if				set lstSofar to lstSofar &amp; strID			end repeat						repeat with i from 1 to length of lstParent				set item i of lstParent to "//@id=" &amp; item i of lstParent			end repeat						-- TRANSLATE THE LIST OF IDS INTO A LIST OF NODE RECORDS			set {dlm, AppleScript's text item delimiters} to {AppleScript's text item delimiters, " union "}			set lstRoot to DEPRECATED get nodes as records path (lstParent as string)			set my text item delimiters to dlm						return lstRoot		end tell	end tellend SelectedFTRoots-- GET A RECURSIVE CHILD LIST FOR EACH NODE IN THE LISTon ExpandDev(oDoc, lst)	set blnFound to false	tell application "FoldingText"		tell oDoc			repeat with i from 1 to length of lst				-- READ THIS NODE AND CHECK FOR .topic STATUS				set oNode to contents of (item i of lst)				try					set blnFound to ((mode of oNode) = "todo")				end try								-- GET THE CHILDREN OF THIS NODE				--if pblnSkipDone then				--	set lstChiln to read nodes at path "(//@id=" &amp; |id| of oNode &amp; "/@type!=empty) except (//@done)"				--else				set lstChiln to read nodes at path "//@id=" &amp; |id| of oNode &amp; "/@type!=empty"				--end if				if lstChiln ≠ {} then					-- GET THEIR SUB-TREES					set lstSub to my ExpandDev(oDoc, lstChiln)					-- IF WE ARE STILL LOOKING,					-- HAS A .todo BEEN FOUND IN ANY OF THE SUB-TREES ?					if not blnFound then						repeat with oSub in lstSub							if (item 3 of oSub) then								set blnFound to true								exit repeat							end if						end repeat					end if					set item i of lst to {oNode, lstSub, blnFound}				else					set item i of lst to {oNode, {}, blnFound}				end if			end repeat			return lst		end tell	end tellend ExpandDevon Expand(oDoc, lst)	set blnFound to false	tell application "FoldingText"		tell oDoc			repeat with i from 1 to length of lst				-- READ THIS NODE AND CHECK FOR .topic STATUS				set oNode to contents of (item i of lst)				try					set blnFound to ((mode of oNode) = "todo")				end try								-- GET THE CHILDREN OF THIS NODE				if pblnSkipDone then					set lstChiln to read nodes oDoc at path "//@id=" &amp; |id| of oNode &amp; "/*"				else					set lstChiln to read nodes oDoc at path "//@id=" &amp; |id| of oNode &amp; "/*"				end if				if lstChiln ≠ {} then					-- GET THEIR SUB-TREES					set lstSub to my Expand(oDoc, lstChiln)					-- IF WE ARE STILL LOOKING,					-- HAS A .todo BEEN FOUND IN ANY OF THE SUB-TREES ?					if not blnFound then						repeat with oSub in lstSub							if (item 3 of oSub) then								set blnFound to true								exit repeat							end if						end repeat					end if					set item i of lst to {oNode, lstSub, blnFound}				else					set item i of lst to {oNode, {}, blnFound}				end if			end repeat			return lst		end tell	end tellend Expand-- BUILD OPMLon Nodes2OPML(lngIndex, lstNodes, strIndent)	set {strExpand, strOut} to {"", ""}	repeat with oNode in lstNodes		set {recNode, lstChiln, _} to contents of oNode		set strText to |text| of recNode				set strOut to strOut &amp; pNodeStart &amp; "text=" &amp; ¬			(do shell script "python -c 'import sys; from xml.sax.saxutils import quoteattr; print quoteattr(sys.argv[1])' " &amp; ¬				quoted form of strText)				set lngIndex to lngIndex + 1		if (length of lstChiln &gt; 0) then			set strExpand to strExpand &amp; "," &amp; (lngIndex) as string			set {lngIndex, strSubExpand, strSubOutln} to Nodes2OPML(lngIndex, lstChiln, strIndent &amp; tab)			if strSubExpand ≠ "" then set strExpand to strExpand &amp; "," &amp; strSubExpand			set strOut to strOut &amp; "&gt;" &amp; return &amp; ¬				strIndent &amp; strSubOutln &amp; return &amp; ¬				strIndent &amp; pParentClose		else			set strOut to strOut &amp; pLeafClose		end if	end repeat	if strExpand begins with "," and length of strExpand &gt; 1 then set strExpand to text 2 thru -1 of strExpand	return {lngIndex, strExpand, strOut}end Nodes2OPMLon Attr(strName, strValue)	strName &amp; "=" &amp; EscapeChars(strValue) &amp; spaceend Attron EscapeChars(str)	-- QUOTE &lt; &gt; &amp; ETC	set strEncoded to (do shell script "python -c 'import sys; from xml.sax.saxutils import quoteattr; print quoteattr(sys.argv[1])' " &amp; ¬		quoted form of str)		---- ENCODE DIACRITICS AND SPECIAL CHARACTERS	--set lstChars to characters of strEncoded	--repeat with i from 1 to length of lstChars	--	set lngCode to id of item i of lstChars	--	if lngCode &gt; 127 then set item i of lstChars to ("&amp;#" &amp; lngCode as string) &amp; ";"	--end repeat	--lstChars as Unicode textend EscapeChars-- SAVE A STRING TO A TEXT FILEon ChooseFilePathAndSave(strText, strPath, strBaseName, strExtn)	tell application "Finder"		-- OFFER A DEFAULT FOLDER (if a valid one is specified)		if exists pOutFolder then			set strOutFolder to POSIX path of pOutFolder		else			-- OR OFFER THE FOLDER CONTAINING THE .OO3 FILE			set lngName to length of strBaseName			set strOutFolder to text 1 thru ((-lngName) - 1) of strPath		end if	end tell	set {dlm, my text item delimiters} to {my text item delimiters, "."}	set strStem to first text item of strBaseName	set my text item delimiters to dlm	tell application "FoldingText"		activate		set strOutPath to (POSIX path of ¬			(choose file name with prompt pTitle default name strStem &amp; "." &amp; strExtn default location strOutFolder))	end tell	WriteText2Path(strText, strOutPath)end ChooseFilePathAndSaveon WriteText2Path(strText, strPosixPath)	set f to (POSIX file strPosixPath)	open for access f with write permission	write strText as «class utf8» to f	close access fend WriteText2Path</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>2CC44584-B9B4-437E-B637-39204FCCD5DB</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>-- Copyright (C) 2012 Robin Trew---- Permission is hereby granted, free of charge, -- to any person obtaining a copy of this software -- and associated documentation files (the "Software"), -- to deal in the Software without restriction, -- including without limitation the rights to use, copy, -- modify, merge, publish, distribute, sublicense, -- and/or sell copies of the Software, and to permit persons -- to whom the Software is furnished to do so, -- subject to the following conditions:-- *******-- The above copyright notice and this permission notice -- shall be included in ALL copies -- or substantial portions of the Software.-- *******-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, -- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES -- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. -- IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, -- DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, -- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE -- OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.property pTitle : "Expand FT doc to level N"property pVer : "0.08"property pAuthor : "Rob Trew, www.complexpoint.net"-- Ver 0.05 doesn't add leaf nodes to the collapsed list-- WORKS WITH LAUNCHBAR,-- give an absolute expansion level, or an adjustment like +1 -2 etc -- (a simple + or - is interepreted as +1 or -1)property plngDialog : 0property plngOneMore : 1property plngOneLess : 2property plngBehaviour : plngOneMoreproperty plngLevel : "-1"on alfred_script(q)	tell application "FoldingText"		set lstDocs to documents		if length of lstDocs &lt; 1 then return		set oDoc to item 1 of lstDocs		set lngMax to (my MaxDepth(oDoc)) + 1		my ShowLevel(q, oDoc, lngMax)	end tellend alfred_script-- OR WITHOUT LAUNCHBAR ...on run	if plngBehaviour = plngDialog then		tell application "FoldingText"			set lstDocs to documents			if length of lstDocs &lt; 1 then return			set oDoc to item 1 of lstDocs						set lngMax to (my MaxDepth(oDoc)) + 1						activate			try				set varLevel to (display dialog "Expand to level (1-" &amp; lngMax &amp; ")" &amp; return &amp; return &amp; ¬					"(or amount to adjust expansion by: +1 -2 etc)." default answer lngMax buttons {"Cancel", "OK"} ¬					cancel button "Cancel" default button "OK" with title pTitle &amp; "  ver. " &amp; pVer)			on error				return			end try			set varLevel to text returned of varLevel			my ShowLevel(varLevel, oDoc, lngMax)		end tell	else if plngBehaviour = plngOneMore then		handle_string("+1")	else -- one less		handle_string("-1")	end ifend run-- WHAT IS THE DEEPEST LEVEL OF NESTINGon MaxDepth(oDoc)	set strLevel to "/*"	tell application "FoldingText"		set strPath to strLevel		set lngLevel to -1		tell front document			set lngNodes to length of (read text it at path strPath)			repeat while lngNodes &gt; 0				set lngLevel to lngLevel + 1				set strPath to strPath &amp; strLevel				set lngNodes to length of (read text it at path strPath)			end repeat		end tell	end tell	return lngLevelend MaxDepth-- What is the level of the most senior node which is currently collapsed ?on GetLevel(oDoc, lngMax)	tell application "FoldingText"		set lngMin to lngMax		set lstCollapsed to read collapsed nodes oDoc		if length of lstCollapsed = 0 then return lngMax		repeat with oRec in lstCollapsed			if |type| of oRec is not "empty" then				set lngLevel to (length of (read nodes oDoc at path "///@id=" &amp; (|id| of oRec)))				if lngLevel &lt; lngMin then set lngMin to lngLevel			end if		end repeat		return lngMin	end tellend GetLevel-- Set an absolute expansion level, or adjust the expansion level by a deltaon ShowLevel(strLevel, oDoc, lngMax)	tell application "FoldingText"		set blnPlus to strLevel contains "+"		set blnMinus to strLevel contains "-"		set blnDelta to (blnPlus or blnMinus)		try			set lngValue to strLevel as integer		on error			if not blnDelta then				activate				display dialog strLevel &amp; " could not be interpreted as a level or adjustment" buttons {"OK"} default button "OK" with title pTitle &amp; "  ver. " &amp; pVer				return			else				if blnMinus then					set lngValue to -1				else					set lngValue to 1				end if			end if		end try				if blnDelta then			set lngLevel to (my GetLevel(oDoc, lngMax)) + lngValue		else			set lngLevel to lngValue		end if		if lngLevel &gt; lngMax then set lngLevel to lngMax		if lngLevel &gt; 0 then			-- EXPAND THE NODES ABOVE THE TARGET LEVEL			lngLevel			set lstNodes to my NodesWhereLevel(oDoc, lngLevel, true)			update collapsed nodes oDoc with changes {|removeNodes|:lstNodes}						-- AND COLLAPSE THE TARGET LEVEL ITSELF			set lstNodes to my NodesWhereLevel(oDoc, lngLevel, false)			update collapsed nodes oDoc with changes {|addNodes|:lstNodes}		else			-- EXPAND COMPLETELY			set lstNodes to read nodes oDoc at path "/*"			update collapsed nodes oDoc with changes {|addNodes|:lstNodes}		end if			end tellend ShowLevel-- Return parent nodes at a specific level-- or all nodes parental to that levelon NodesWhereLevel(oDoc, lngLevel, blnAbove)	set strChiln to "/*"	set strLevel to ""	if blnAbove then		set lngClear to lngLevel - 1		if lngClear &lt; 1 then			return {}		else			repeat with i from 1 to (lngLevel - 1)				set strLevel to strLevel &amp; strChiln			end repeat			set strLevel to strLevel &amp; "/ancestor-or-self::*"		end if	else		-- Get *parents* at the given level		-- (we don't want to add leaves to the collapsed list)		repeat with i from 1 to (lngLevel + 1)			set strLevel to strLevel &amp; strChiln		end repeat		set strLevel to strLevel &amp; "/parent::*"	end if		tell application "FoldingText" to return (read nodes oDoc at path strLevel)end NodesWhereLevel</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>A16A004F-D15F-4E26-BA81-AE555886FA91</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>-- Create Markdown link from front most tab in safari and append-- to end of current FoldingText document as new list item.-- UNCOMMENT FOR USE IN ALFREDon alfred_script(q)set the date_stamp to (short date string of (current date))set parentText to ("- Links from Safari Tabs on ") &amp; the date_stamp &amp; " @linklist" &amp; returnset MDLink to ""tell application "Safari"	activate	set safariWindow to window 1	try		repeat with t in (tabs of safariWindow)			set TabTitle to (name of t)			set TabURL to (URL of t) as text			set MDLink to (MDLink &amp; ("	- [" &amp; TabTitle &amp; "]" &amp; "(" &amp; TabURL &amp; ") ") &amp; return)		end repeat	end tryend tell-- Append MDLink to the end of parentText and add to end of current document-- in FoldingText.tell application "FoldingText"	tell front document		create nodes from text (parentText &amp; MDLink)	end tellend tell--UNCOMMENT FOR USE IN ALFREDend alfred_script</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>E2096201-BD6B-4E4E-B13C-644B94FB401B</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>ft</string>
+				<key>subtext</key>
+				<string>Set maximum expansion level of current document</string>
+				<key>text</key>
+				<string>FT-Level</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E5F46CF0-5DCC-4AB8-815C-61FDDEA288A8</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>ftlink</string>
+				<key>subtext</key>
+				<string>Create MD link from front Safari tab.</string>
+				<key>text</key>
+				<string>FT-Safari Link</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>2A51F0EC-B8B8-4DB3-BB8C-964BD83DC1CB</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>ftomni</string>
+				<key>subtext</key>
+				<string>Export FT document to OF, OO, OG, or OPML format</string>
+				<key>text</key>
+				<string>FT-Omni</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>991B85CA-8E61-4A1C-A628-13CE76B74267</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>-- Create Markdown link from front most tab in safari and append-- to end of current FoldingText document as new list item.on alfred_script(q)	set MDLink to ""	tell application "Safari"		activate		set safariWindow to window 1		try			set t to current tab of safariWindow			set TabTitle to (name of t)			set TabURL to (URL of t) as text			set MDLink to ("[" &amp; TabTitle &amp; "]" &amp; "(" &amp; TabURL &amp; ")")		end try	end tell		tell application "FoldingText"		tell front document			create nodes from text ("- " &amp; MDLink)		end tell	end tellend alfred_script</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>F8ED6D76-65D6-4938-BECF-60317B140B99</string>
+		</dict>
+	</array>
+	<key>uidata</key>
+	<dict>
+		<key>2A51F0EC-B8B8-4DB3-BB8C-964BD83DC1CB</key>
+		<dict>
+			<key>ypos</key>
+			<real>340</real>
+		</dict>
+		<key>2CC44584-B9B4-437E-B637-39204FCCD5DB</key>
+		<dict>
+			<key>ypos</key>
+			<real>110</real>
+		</dict>
+		<key>5C44ECC9-3380-47B4-9581-8A611B1F49BF</key>
+		<dict>
+			<key>ypos</key>
+			<real>220</real>
+		</dict>
+		<key>991B85CA-8E61-4A1C-A628-13CE76B74267</key>
+		<dict>
+			<key>ypos</key>
+			<real>110</real>
+		</dict>
+		<key>A16A004F-D15F-4E26-BA81-AE555886FA91</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>AAAE270B-2397-4910-9691-6BA4030DF9A3</key>
+		<dict>
+			<key>ypos</key>
+			<real>220</real>
+		</dict>
+		<key>E2096201-BD6B-4E4E-B13C-644B94FB401B</key>
+		<dict>
+			<key>ypos</key>
+			<real>460</real>
+		</dict>
+		<key>E5F46CF0-5DCC-4AB8-815C-61FDDEA288A8</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>F8ED6D76-65D6-4938-BECF-60317B140B99</key>
+		<dict>
+			<key>ypos</key>
+			<real>340</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://www.morse-coder.com</string>
+</dict>
+</plist>
